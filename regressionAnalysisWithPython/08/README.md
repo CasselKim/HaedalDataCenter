@@ -1,19 +1,40 @@
 # 08. 고급 회귀분석 방법
 
-**Good Model**
+고급에 들어가기 전에 먼저 기초부터 다지고 갑시다.  
 
-* Explanatory modeling : 현재 데이터(training data)를 잘 설명하는 모델
+~~(왜냐하면 전 이전 챕터 맡으신 분들을 믿지 않거든요)~~    
+
+　    
+
+![main](main.gif)
+
+　    
+
+　    
+
+좋은 모델이란 어떤 모델을 말하는 걸까요?  현재 데이터(training data)를 잘 설명하면서도 미래 데이터(testing data)에 대한 예측을 잘하는 친구라면 좋은 모델이라고 불러줄 수 있지 않을까요?  
+
+* **Explanatory modeling** : 현재 데이터(training data)를 잘 설명하는 모델
   * Training error를 최소화하는 모델
+  
+* **Predictive modeling** : 미래 데이터(testing data)에 대한 예측 성능이 좋은 모델
 
-* Predictive modeling : 미래 데이터(testing data)에 대한 예측 성능이 좋은 모델
+정확도를 의미하는 MSE(Mean Squared Error)를 전개하면 Irreducible Error + Bias^2 + Variance로 나눌 수 있습니다. 하지만 여기서 Irreducible Error은 저희가 바꿀 수 없는 값이므로 Bias와 Variance를 최대한 줄여야겠죠? 그렇다면 그림으로 Bias와 Variance에 대해 조금 더 insight를 얻어볼께요.
 
-  * 예측 값의 MSE(Mean Squared Error)를 전개하면 Irreducible Error + Bias^2 + Variance로 나눌 수 있다.
+　      
 
-  * Irreducible Error은 우리가 바꿀 수 없는 값이므로 Bias와 Variance를 최대한 줄여야 한다.
+![image](01.png)
 
-  * ![image](01.png)    
+　        
 
-    (중앙에 가까울수록 정확함)  
+　      
+
+- 중앙에 가까울수록 정확합니다.
+- 낮은 Bias와 낮은 Variance를 가질수록 오차가 적어집니다.
+- Bias는 제곱을 취해서 증가량이 기하급수적이지만, 그보다 Variance의 감소량이 많다면 오차는 감소합니다.
+- 따라서 Bias와 Variance 중에 무엇을 줄이는게 현명한지는 단정할 수 없습니다.
+
+　        
 
 ## 기존 회귀분석 방법
 
