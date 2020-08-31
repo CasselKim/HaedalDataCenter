@@ -10,24 +10,23 @@
 
 　    
 
-　    
+좋은 모델이란 어떤 모델을 말하는 걸까요?  
 
-좋은 모델이란 어떤 모델을 말하는 걸까요?  현재 데이터(training data)를 잘 설명하면서도 미래 데이터(testing data)에 대한 예측을 잘하는 친구라면 좋은 모델이라고 불러줄 수 있지 않을까요?  
+현재 데이터(training data)를 잘 설명하면서도 미래 데이터(testing data)에 대한 예측을 잘하는 친구라면 좋은 모델이라고 불러줄 수 있지 않을까요?  
 
 * **Explanatory modeling** : 현재 데이터(training data)를 잘 설명하는 모델
-  * Training error를 최소화하는 모델
-  
+
 * **Predictive modeling** : 미래 데이터(testing data)에 대한 예측 성능이 좋은 모델
 
-정확도를 의미하는 MSE(Mean Squared Error)를 전개하면 Irreducible Error + Bias^2 + Variance로 나눌 수 있습니다. 하지만 여기서 Irreducible Error은 저희가 바꿀 수 없는 값이므로 Bias와 Variance를 최대한 줄여야겠죠? 그렇다면 그림으로 Bias와 Variance에 대해 조금 더 insight를 얻어볼께요.
+정확도를 의미하는 MSE(Mean Squared Error)를 전개하면 Irreducible Error + Bias^2 + Variance로 나눌 수 있습니다.  
+
+하지만 여기서 Irreducible Error은 저희가 바꿀 수 없는 값이므로 Bias와 Variance를 최대한 줄여야겠죠?  
+
+그렇다면 그림으로 Bias와 Variance에 대해 조금 더 insight를 얻어볼께요.
 
 　      
 
 ![image](01.png)
-
-　        
-
-　      
 
 - 중앙에 가까울수록 정확합니다.
 - 낮은 Bias와 낮은 Variance를 가질수록 오차가 적어집니다.
@@ -40,23 +39,41 @@
 
 ### LSM
 
-원래 우리가 쓰던 방법은 LSM(Least squared estimation method, 최소제곱법)이다.  
+원래 저희가 쓰던 방법은 LSM(Least squared estimation method, 최소제곱법)이에요.  
 
 ![image](02.png)  
 
-**(실제 값 - 예측 값)^2의 합이 최소가 되는 계수 값 베타를 찾자** 라는 의미이다.  
+**(실제 값 - 예측 값)^2의 합이 최소가 되는 계수 값 베타를 찾자** 라는 의미죠.  
 
-LSM은 Bias가 없기 때문에 상당히 성능이 좋다고 볼 수 있다. 그럼 위에서 말한 Good Model의 조건에 부합하는 놈일까?  
+LSM은 Bias가 없기 때문에 상당히 성능이 좋다고 볼 수 있습니다.  
 
+그럼 너가 바로 Good Model이니?   
 
+　  
 
 ### Subset Selection
 
-꼭 그렇다고는 볼 수 없다. 물론 bias가 없기 때문에 전체적인 성능이 좋긴 하지만, bias를 가지면서도 variance가 엄청 작은 모델은 LSM보다 좋을 수 있기 때문이다.  
+　  
 
-위의 생각에서 나온 것이 바로 Subset selection method이다. 모든 독립변수 x를 사용하는 것이 아닌, 일부(subset)만 선택(selection)하여 회귀 계수를 추정하는 방법이다. 이는 LSM보다 bias는 증가할지 몰라도, 전체 variance가 감소하기 때문에 LSM보다 더 좋은 성능을 낼 수 있었다. 여기서 정규화에 대한 개념이 등장한다.  
+<img src="01.gif" alt="gif" style="zoom:150%;" />
 
+　  
 
+꼭 그렇다고 볼 수는 없습니다.  
+
+bias를 가지면서도 variance가 엄청 작은 모델은 LSM보다 좋을 수 있기 때문이죠.  
+
+　  
+
+위의 생각에서 나온 것이 바로 Subset selection method입니다.  
+
+모든 독립변수 x를 사용하는 것이 아닌, 일부(subset)만 선택(selection)하여 회귀 계수를 추정하는 방법이죠.  
+
+이는 LSM보다 bias는 증가할지 몰라도 전체 variance가 감소하기 때문에 LSM보다 더 좋은 성능을 낼 수 있었습니다.  
+
+여기서 **정규화**에 대한 개념이 등장합니다.  
+
+　  
 
 ## 정규화(Regularization)
 
@@ -64,53 +81,63 @@ LSM은 Bias가 없기 때문에 상당히 성능이 좋다고 볼 수 있다. �
 
 ![image](03.png)  
 
-3번 모델은 현재 데이터(training data)에는 적합할 지 몰라도(bias가 작음),  
+3번 모델은 현재 데이터(training data)에는 적합할 지 몰라도,(bias가 작음)  
 
-미래 데이터(testing data)에는 적합하지 않은 모델이라고 볼 수 있다(variance가 큼).  
+미래 데이터(testing data)에는 적합하지 않은 모델이라고 볼 수 있습니다.(variance가 큼)  
 
-이를 해결하기 위해서 **모델 복잡도에 대한 penalty를 부과**하는 방법을 사용한다. 
+이를 해결하기 위해서 **모델 복잡도에 대한 penalty를 부과**하는 방법을 사용합니다. 
 
 ![image](04.png)  
 
-모델은 오차를 최소화하기 위해 β3와 β4에게 작은 값을 줄 것이고, 결국 모델이 전반적으로 일반화(regularization)되는 결과를 낳는다.
+모델은 오차를 최소화하기 위해 β3와 β4에게 작은 값을 줄 것입니다.  
+
+결국 모델이 전반적으로 일반화(regularization)되는 결과를 낳게 되죠.  
 
 ![image](05.png)  
 
-가장 기본적인 form은 위와 같다.  
+가장 기본적인 form은 위와 같습니다.  
 
-하이퍼 파라미터 λ를 설정하여 (1)과 (2) 사이의 트레이드 오프를 적절하게 조절한다.   
+하이퍼 파라미터 λ를 설정하여 (1)과 (2) 사이의 트레이드 오프를 적절하게 조절합니다.   
 
-결국, Regularization이란 bias를 늘이더라도 variance를 확실히 낮춰 정확도를 높이는 방법이다.  
+결국, Regularization이란 bias를 늘리더라도 variance를 확실히 낮춰 정확도를 높이는 방법입니다.  
+
+　  
 
 ### Ridge Regression
 
 ![image](06.png)  
 
-제일 처음 Regularization을 도입한 모델이다.  
+제일 처음 Regularization을 도입한 모델입니다.  
 
-***베타 제곱값의 합이 하이퍼 파라미터 t보다 작다*** 라는 penalty를 가진 Regularization 방법이다.  
+***β제곱값의 합이 하이퍼 파라미터 t보다 작다*** 라는 penalty를 가진 방법이죠.  
 
 ![image](07.png) 
 
-위의 두 조건을 만족시키는(두 도형의 교차점)이 바로 Ridge Regression이 찾고자 하는 값이다.   
+위의 두 조건을 만족시키는(두 도형의 교차점)이 바로 Ridge Regression이 찾고자 하는 값입니다.   
+
+　  
 
 ### LASSO
 
-Least Absolute Shrinkage and Selection Operator(LASSO)는 Ridge Regression과는 다르게 ***베타의 절대값의 합이 하이퍼 파라미터 t보다 작다*** 라는 penalty를 가진 Regularization 방법이다.
+Least Absolute Shrinkage and Selection Operator(LASSO)는 Ridge Regression과는 다르게  
+
+***β의 절대값의 합이 하이퍼 파라미터 t보다 작다*** 라는 penalty를 가진 Regularization 방법입니다.
 
 ![image](08.png)
 
 ![image](09.png)  
 
-LASSO는 제약 조건이 마름모꼴 형태다.  
+LASSO는 제약 조건이 마름모꼴 형태입니다.  
 
-Rigde와 가장 구별되는 차이점은, LASSO는 어떤 베타를 죽이고 어떤 베타를 살릴 것인지 선택할 수 있다.  
+LASSO는 어떤 베타를 죽이고 어떤 베타를 살릴 것인지 선택할 수 있지만,  
 
-하지만 L1 Distance(절대값)을 사용하기 때문에 미분을 못해서 Optimization하기가 힘들다.  
+하지만 L1 Distance(절대값)을 사용하기 때문에 미분을 못해서 Optimization하기가 힘듭니다.  
 
-이를 가능케 하는 것이 바로 LARS 알고리즘이다. 
+그래서 이를 가능케 해주는 알고리즘이 바로 LARS 알고리즘입니다. 
 
+　  
 
+### LARS
 
 1. 베타 값을 0으로 초기화한다.
 
